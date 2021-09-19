@@ -1,6 +1,7 @@
 console.log("hello from the renderer process");
 
+declare var api: any
+
 const coreCount = document.getElementById("cores");
 
-// @ts-expect-error
-coreCount?.innerText = `Core Count ${api.threads}`;
+coreCount!.innerText = `Core Count ${api.threads}`;
