@@ -18,5 +18,8 @@
   "homepage": "https://github.com/PhilipWright96/SystemReporter#readme",
   "dependencies": {
     "electron": "^14.0.1"
+  },
+  "devDependencies": {
+    "@types/electron": "^1.6.10"
   }
 }
