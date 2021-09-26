@@ -1,5 +1,4 @@
 const { app, BrowserWindow } = require('electron');
-const path = require('path');
 
 const createWindow = () => {
   // Create the browser window.
@@ -7,14 +6,14 @@ const createWindow = () => {
     width: 800,
     height: 600,
     webPreferences: {
-        preload: __dirname + "/preload.js"
+      preload: `${__dirname}/preload.js`,
     },
-    show: false
-});
+    show: false,
+  });
 
   // and load the index.html of the app.
   mainWindow.loadFile('./index.html');
-  mainWindow.on("ready-to-show", () => mainWindow.show());
+  mainWindow.on('ready-to-show', () => mainWindow.show());
 };
 
 // This method will be called when Electron has finished
