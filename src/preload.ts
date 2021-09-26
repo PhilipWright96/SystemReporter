@@ -1,6 +1,6 @@
-import { contextBridge } from "electron";
+import { contextBridge } from 'electron';
 import { cpus } from 'os';
 
-contextBridge.exposeInMainWorld("api", {
-    threads: cpus().length
+contextBridge.exposeInMainWorld('api', {
+  threads: cpus().length,
 });
