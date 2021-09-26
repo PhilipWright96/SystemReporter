@@ -11,6 +11,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'prettier'],
   rules: {
+    'comma-dangle': 'off',
     'prettier/prettier': 'error',
   },
 };
