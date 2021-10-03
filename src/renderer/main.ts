@@ -3,6 +3,7 @@ function buildJSONFromCommandLineOutput(
 ): Record<string, any> {
   const hostNameMap: Record<string, any> = {};
 
+  // Add XXX as a placeholder to easily distinguish different outputs of the command
   const cleanedStringOutput = commandLineOutput
     .replace(/\n+/g, 'XXX')
     .replace(/\s+/g, ' ')
