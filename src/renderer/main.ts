@@ -1,17 +1,20 @@
-function buildJSONFromCommandLineOutput(commandLineOutput: string) {
-  const xAsBreaks = commandLineOutput.replace(/\n+/g, 'XXX');
+function buildJSONFromCommandLineOutput(
+  commandLineOutput: string
+): Record<string, any> {
+  const hostNameMap: Record<string, any> = {};
 
-  const trimmedWhitespace = xAsBreaks.replace(/\s+/g, ' ').trim();
+  const cleanedStringOutput = commandLineOutput
+    .replace(/\n+/g, 'XXX')
+    .replace(/\s+/g, ' ')
+    .trim();
 
-  const arrayofKeysAndValues = trimmedWhitespace
+  const outputKeysAndValues = cleanedStringOutput
     .split(/[:XXX]+/)
     .filter(Boolean);
 
-  const hostNameMap: Record<string, any> = {};
-
-  for (let i = 0; i < arrayofKeysAndValues.length; i += 2) {
-    const key = arrayofKeysAndValues[i].replaceAll(' ', '');
-    const value = arrayofKeysAndValues[i + 1].trim();
+  for (let i = 0; i < outputKeysAndValues.length; i += 2) {
+    const key = outputKeysAndValues[i].replaceAll(' ', '');
+    const value = outputKeysAndValues[i + 1].trim();
     hostNameMap[key] = value;
   }
 
