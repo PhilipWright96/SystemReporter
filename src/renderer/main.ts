@@ -1,3 +1,6 @@
+// api exposed in preload.ts, but redeclared here to make eslint happy
+declare const api: any;
+
 function buildJSONFromCommandLineOutput(
   commandLineOutput: string
 ): Record<string, any> {
@@ -22,15 +25,20 @@ function buildJSONFromCommandLineOutput(
   return hostNameMap;
 }
 
-// api exposed in preload.ts, but redeclared here to make eslint happy
-declare const api: any;
+function setDyanmicValues(): void {
+  const coreCount = document.getElementById('cores');
+  const hostnameTag = document.getElementById('hostname');
 
-const coreCount = document.getElementById('cores');
-const hostnameTag = document.getElementById('hostname');
+  const { hostNameOutput } = api;
 
-const { hostNameOutput } = api;
+  const hostNameMap = buildJSONFromCommandLineOutput(hostNameOutput);
 
-const hostNameMap = buildJSONFromCommandLineOutput(hostNameOutput);
+  coreCount!.innerText = `Core Count: ${api.threads}`;
+  hostnameTag!.innerText = `Hostname:  ${hostNameMap.Statichostname}`;
+}
 
-coreCount!.innerText = `Core Count: ${api.threads}`;
-hostnameTag!.innerText = `Hostname:  ${hostNameMap.Statichostname}`;
+function main(): void {
+  setDyanmicValues();
+}
+
+main();
