@@ -3,8 +3,8 @@ const { app, BrowserWindow } = require('electron');
 const createWindow = () => {
   // Create the browser window.
   const mainWindow: any = new BrowserWindow({
-    width: 1000,
-    height: 800,
+    width: 800,
+    height: 600,
     webPreferences: {
       preload: `${__dirname}/preload.js`,
     },
