@@ -1,0 +1,11 @@
+body {
+  background-color: #000000;
+}
+title,
+h1,
+h3 {
+  color: #ffffff;
+}
+.center {
+  text-align: center;
+}
