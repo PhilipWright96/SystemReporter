@@ -1,5 +1,4 @@
 import { contextBridge } from 'electron';
-import { cpus } from 'os';
 import { execSync } from 'child_process';
 import buildJSONFromCommandLineOutput from './stringUtil';
 
@@ -9,11 +8,9 @@ function exposeMachineStatistics(): void {
   // TODO: Investigate using 'process'object values here as well
   const hostNameMap = buildJSONFromCommandLineOutput(hostNameOutput);
   const lscpuMap = buildJSONFromCommandLineOutput(lscpuOutput);
-
   contextBridge.exposeInMainWorld('api', {
     hostNameMap,
     lscpuMap,
-    threads: cpus().length,
   });
 }
 

@@ -8,7 +8,7 @@ function setCPUValues(lscpuMap: Record<string, any>): void {
   const vendor = document.getElementById('vendor');
 
   architecture!.innerText = `Architecture: ${lscpuMap.Architecture}`;
-  coreCount!.innerText = `Core Count: ${api.threads}`;
+  coreCount!.innerText = `Core Count: ${lscpuMap.CPUs}`;
   modelName!.innerText = `Model Name: ${lscpuMap.Modelname}`;
   vendor!.innerText = `Vendor:  ${lscpuMap.VendorID}`;
 }
