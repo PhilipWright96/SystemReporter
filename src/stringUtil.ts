@@ -14,7 +14,9 @@ function buildJSONFromCommandLineOutput(
     .filter(Boolean);
 
   for (let i = 0; i < outputKeysAndValues.length; i += 2) {
-    const key = outputKeysAndValues[i].replaceAll(' ', '');
+    const key = outputKeysAndValues[i]
+      .replaceAll(' ', '')
+      .replaceAll(/[\(\)']+/g, '');
     const value = outputKeysAndValues[i + 1].trim();
     hostNameMap[key] = value;
   }
