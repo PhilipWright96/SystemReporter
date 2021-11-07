@@ -11,22 +11,76 @@
     <title>System Reporter</title>
   </head>
   <body>
-
     <div class="container">
       <div class="page-header" id="banner">
         <div class="row">
-          <div class="col-lg-8 col-md-7 col-sm-6">
-            <h1>Cyborg</h1>
-            <p class="lead">Jet black and electric blue</p>
+          <div class="col-lg-12">
+            <h1>System Reporter</h1>
+            <p class="lead">
+              Below you will find basic statistics for your machine.
+            </p>
           </div>
-          <div class="col-lg-4 col-md-5 col-sm-6">
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <h4>The Basics</h4>
+      <div class="row">
+        <div class="col-sm">
+          <div class="bs-component">
+            <div class="card text-white bg-primary mb-3">
+              <div class="card-header">CPU</div>
+              <div class="card-body">
+                <h6 id="cores">Core Count</h6>
+                <p class="card-text">TODO: Enter more stats here.</p>
+                <a href="#" class="text-white">More CPU Information</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm">
+          <div class="bs-component">
+            <div class="card text-white bg-success mb-3">
+              <div class="card-header">Identifiers</div>
+              <div class="card-body">
+                <h6 id="hostname">Hostname</h6>
+                <p class="card-text">TODO: Enter more stats here.</p>
+                <a href="#" class="text-white">More Identifier Information</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-    <h1 text-align="center">Main Page</h1>
-    <h3 id="cores">Core Count</h3>
-    <h3 id="hostname">Hostname</h3>
+      <div class="row">
+        <div class="col-sm">
+          <div class="bs-component">
+            <div class="card text-white bg-warning mb-3">
+              <div class="card-header">Memory</div>
+              <div class="card-body">
+                <p class="card-text">TODO: Enter more stats here.</p>
+                <a href="#" class="text-white">More Memory Information</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm">
+          <div class="bs-component">
+            <div class="card text-white bg-danger mb-3">
+              <div class="card-header">Processes</div>
+              <div class="card-body">
+                <p class="card-text">TODO: Enter more stats here.</p>
+                <a href="#" class="text-white">More Process Information</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="dist/renderer/main.js" defer></script>
   </body>
 </html>

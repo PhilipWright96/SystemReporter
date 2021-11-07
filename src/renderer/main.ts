@@ -11,8 +11,8 @@ function setDyanmicValues(): void {
   hostnameTag!.innerText = `Hostname:  ${hostNameMap.Statichostname}`;
 }
 
-function main(): void {
+function setValuesOnHtml(): void {
   setDyanmicValues();
 }
 
-main();
+setValuesOnHtml();
