@@ -2,12 +2,14 @@
 declare const api: any;
 
 function setCPUValues(lscpuMap: Record<string, any>): void {
-  const coreCount = document.getElementById('cores');
   const architecture = document.getElementById('architecture');
+  const coreCount = document.getElementById('cores');
+  const modelName = document.getElementById('model-name');
   const vendor = document.getElementById('vendor');
 
   architecture!.innerText = `Architecture: ${lscpuMap.Architecture}`;
   coreCount!.innerText = `Core Count: ${api.threads}`;
+  modelName!.innerText = `Model Name: ${lscpuMap.Modelname}`;
   vendor!.innerText = `Vendor:  ${lscpuMap.VendorID}`;
 }
 
