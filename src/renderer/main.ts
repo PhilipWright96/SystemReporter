@@ -17,14 +17,22 @@ function setCPUValues(lscpuMap: Record<string, any>): void {
   vendor!.innerText = `Vendor:  ${lscpuMap.VendorID}`;
 }
 
-function setDyanmicValues(): void {
+function setIdentifierValues(
+  hostNameMap: Record<string, any>,
+  ipv4Address: string
+): void {
   const hostnameTag = document.getElementById('hostname');
-
-  const { hostNameMap, lscpuMap } = api;
-
-  setCPUValues(lscpuMap);
+  const ipv4AddressTag = document.getElementById('ipv4-address');
 
   hostnameTag!.innerText = `Hostname:  ${hostNameMap.Statichostname}`;
+  ipv4AddressTag!.innerText = `IPv4 Address: ${ipv4Address}`;
+}
+
+function setDyanmicValues(): void {
+  const { hostNameMap, ipv4Address, lscpuMap } = api;
+
+  setCPUValues(lscpuMap);
+  setIdentifierValues(hostNameMap, ipv4Address);
 }
 
 function setValuesOnHtml(): void {
