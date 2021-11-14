@@ -19,20 +19,23 @@ function setCPUValues(lscpuMap: Record<string, any>): void {
 
 function setIdentifierValues(
   hostNameMap: Record<string, any>,
-  ipv4Address: string
+  ipv4Address: string,
+  ipv6Address: string
 ): void {
   const hostnameTag = document.getElementById('hostname');
   const ipv4AddressTag = document.getElementById('ipv4-address');
+  const ipv6AddressTag = document.getElementById('ipv6-address');
 
   hostnameTag!.innerText = `Hostname:  ${hostNameMap.Statichostname}`;
   ipv4AddressTag!.innerText = `IPv4 Address: ${ipv4Address}`;
+  ipv6AddressTag!.innerText = `IPv6 Address: ${ipv6Address}`;
 }
 
 function setDyanmicValues(): void {
-  const { hostNameMap, ipv4Address, lscpuMap } = api;
+  const { hostNameMap, ipv4Address, ipv6Address, lscpuMap } = api;
 
   setCPUValues(lscpuMap);
-  setIdentifierValues(hostNameMap, ipv4Address);
+  setIdentifierValues(hostNameMap, ipv4Address, ipv6Address);
 }
 
 function setValuesOnHtml(): void {
