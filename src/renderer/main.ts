@@ -3,9 +3,9 @@ declare const api: any;
 
 function setObjectValuesOnHtml(valuesToSetOnHtml: Record<string, any>): void {
   Object.entries(valuesToSetOnHtml).forEach((commandOutput) => {
-    const commandOutputKey = commandOutput[0];
-    const commandOutputResult = commandOutput[1];
-    const htmlTag = document.getElementById(commandOutputKey);
+    const commandOutputKey = commandOutput[0],
+      commandOutputResult = commandOutput[1],
+      htmlTag = document.getElementById(commandOutputKey);
     htmlTag!.innerText = `${htmlTag!.innerText}: ${commandOutputResult}`;
   });
 }
