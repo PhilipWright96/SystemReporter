@@ -2,19 +2,23 @@
 declare const api: any;
 
 function setCPUValues(lscpuMap: Record<string, any>): void {
-  const architecture = document.getElementById('architecture');
-  const coreCount = document.getElementById('cores');
-  const minMHz = document.getElementById('min-mhz');
-  const maxMHz = document.getElementById('max-mhz');
-  const modelName = document.getElementById('model-name');
-  const vendor = document.getElementById('vendor');
+  const htmlTagToInnerText: Record<string, any> = Object.freeze({
+    Architecture: 'Architecture: ',
+    CPUs: 'Core Count: ',
+    CPUminMHz: 'Min MHz: ',
+    CPUmaxMHz: 'Max MHz',
+    Modelname: 'Model Name: ',
+    VendorID: 'Vendor: ',
+  });
 
-  architecture!.innerText = `Architecture: ${lscpuMap.Architecture}`;
-  coreCount!.innerText = `Core Count: ${lscpuMap.CPUs}`;
-  minMHz!.innerText = `Min MHz: ${lscpuMap.CPUminMHz}`;
-  maxMHz!.innerText = `Max MHz: ${lscpuMap.CPUmaxMHz}`;
-  modelName!.innerText = `Model Name: ${lscpuMap.Modelname}`;
-  vendor!.innerText = `Vendor:  ${lscpuMap.VendorID}`;
+  Object.entries(lscpuMap).forEach((commandOutput) => {
+    const commandOutputKey = commandOutput[0];
+    const commandOutputResult = commandOutput[1];
+    if (Object.keys(htmlTagToInnerText).includes(commandOutputKey)) {
+      const htmlTag = document.getElementById(commandOutputKey);
+      htmlTag!.innerText = `${htmlTagToInnerText[commandOutputKey]}: ${commandOutputResult}`;
+    }
+  });
 }
 
 function setIdentifierValues(
