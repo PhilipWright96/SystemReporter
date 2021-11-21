@@ -2,21 +2,21 @@
 declare const api: any;
 
 function setCPUValues(lscpuMap: Record<string, any>): void {
-  const htmlTagToInnerText: Record<string, any> = Object.freeze({
-    Architecture: 'Architecture: ',
-    CPUs: 'Core Count: ',
-    CPUminMHz: 'Min MHz: ',
-    CPUmaxMHz: 'Max MHz',
-    Modelname: 'Model Name: ',
-    VendorID: 'Vendor: ',
-  });
+  const supportedCpuValueOutputKeys = [
+    'Architecture',
+    'CPUs',
+    'CPUminMHz',
+    'CPUmaxMHz',
+    'Modelname',
+    'VendorID',
+  ];
 
   Object.entries(lscpuMap).forEach((commandOutput) => {
     const commandOutputKey = commandOutput[0];
     const commandOutputResult = commandOutput[1];
-    if (Object.keys(htmlTagToInnerText).includes(commandOutputKey)) {
+    if (supportedCpuValueOutputKeys.includes(commandOutputKey)) {
       const htmlTag = document.getElementById(commandOutputKey);
-      htmlTag!.innerText = `${htmlTagToInnerText[commandOutputKey]}: ${commandOutputResult}`;
+      htmlTag!.innerText = `${htmlTag!.innerText}:${commandOutputResult}`;
     }
   });
 }
