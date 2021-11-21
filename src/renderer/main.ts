@@ -19,9 +19,7 @@ function setCPUValues(lscpuMap: Record<string, any>): void {
 
 function setIdentifierValues(
   hostNameMap: Record<string, any>,
-  publicIpv4Address: string,
-  privateIpv4Address: string,
-  privateIpv6Address: string
+  ipAddressMap: Record<string, any>
 ): void {
   const hostnameTag = document.getElementById('hostname');
   const publicIpv4AddressTag = document.getElementById('public-ipv4-address');
@@ -29,27 +27,16 @@ function setIdentifierValues(
   const privateIpv6AddressTag = document.getElementById('private-ipv6-address');
 
   hostnameTag!.innerText = `Hostname:  ${hostNameMap.Statichostname}`;
-  publicIpv4AddressTag!.innerText = `Public IPv4 Address: ${publicIpv4Address}`;
-  privateIpv4AddressTag!.innerText = `Private IPv4 Address: ${privateIpv4Address}`;
-  privateIpv6AddressTag!.innerText = `IPv6 Address: ${privateIpv6Address}`;
+  publicIpv4AddressTag!.innerText = `Public IPv4 Address: ${ipAddressMap.publicIpv4Address}`;
+  privateIpv4AddressTag!.innerText = `Private IPv4 Address: ${ipAddressMap.privateIpv4Address}`;
+  privateIpv6AddressTag!.innerText = `IPv6 Address: ${ipAddressMap.privateIpv6Address}`;
 }
 
 function setDyanmicValues(): void {
-  const {
-    hostNameMap,
-    publicIpv4Address,
-    privateIpv4Address,
-    privateIpv6Address,
-    lscpuMap,
-  } = api;
+  const { hostNameMap, ipAddressMap, lscpuMap } = api;
 
   setCPUValues(lscpuMap);
-  setIdentifierValues(
-    hostNameMap,
-    publicIpv4Address,
-    privateIpv4Address,
-    privateIpv6Address
-  );
+  setIdentifierValues(hostNameMap, ipAddressMap);
 }
 
 function setValuesOnHtml(): void {

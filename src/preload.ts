@@ -14,11 +14,14 @@ function exposeMachineStatistics(): void {
   // TODO: Investigate using 'process'object values here as well
   const hostNameMap = buildJSONFromCommandLineOutput(hostNameOutput);
   const lscpuMap = buildJSONFromCommandLineOutput(lscpuOutput);
-  contextBridge.exposeInMainWorld('api', {
-    hostNameMap,
+  const ipAddressMap = Object.freeze({
     privateIpv4Address,
     publicIpv4Address,
     privateIpv6Address,
+  });
+  contextBridge.exposeInMainWorld('api', {
+    hostNameMap,
+    ipAddressMap,
     lscpuMap,
   });
 }
