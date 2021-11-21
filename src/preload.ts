@@ -12,8 +12,17 @@ function exposeMachineStatistics(): void {
     "ip addr | grep inet6 | grep -vwE '(host)' | awk '{print $2;}' | tr -d '\r\n'";
   const privateIpv6Address = execSync(ipv6Command, { encoding: 'utf-8' });
   // TODO: Investigate using 'process'object values here as well
-  const hostNameMap = buildJSONFromCommandLineOutput(hostNameOutput);
-  const lscpuMap = buildJSONFromCommandLineOutput(lscpuOutput);
+  const hostNameMap = buildJSONFromCommandLineOutput(hostNameOutput, [
+    'Statichostname',
+  ]);
+  const lscpuMap = buildJSONFromCommandLineOutput(lscpuOutput, [
+    'Architecture',
+    'CPUs',
+    'CPUminMHz',
+    'CPUmaxMHz',
+    'Modelname',
+    'VendorID',
+  ]);
   const ipAddressMap = Object.freeze({
     privateIpv4Address,
     publicIpv4Address,
