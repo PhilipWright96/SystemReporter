@@ -1,41 +1,25 @@
 // api exposed in preload.ts, but redeclared here to make eslint happy
 declare const api: any;
 
-function setObjectValuesOnHtml(
-  valuesToSetOnHtml: Record<string, any>,
-  supportedKeys: string[]
-): void {
+function setObjectValuesOnHtml(valuesToSetOnHtml: Record<string, any>): void {
   Object.entries(valuesToSetOnHtml).forEach((commandOutput) => {
     const commandOutputKey = commandOutput[0];
     const commandOutputResult = commandOutput[1];
-    if (supportedKeys.includes(commandOutputKey)) {
-      const htmlTag = document.getElementById(commandOutputKey);
-      htmlTag!.innerText = `${htmlTag!.innerText}: ${commandOutputResult}`;
-    }
+    const htmlTag = document.getElementById(commandOutputKey);
+    htmlTag!.innerText = `${htmlTag!.innerText}: ${commandOutputResult}`;
   });
 }
 
 function setCPUValues(lscpuMap: Record<string, any>): void {
-  setObjectValuesOnHtml(lscpuMap, [
-    'Architecture',
-    'CPUs',
-    'CPUminMHz',
-    'CPUmaxMHz',
-    'Modelname',
-    'VendorID',
-  ]);
+  setObjectValuesOnHtml(lscpuMap);
 }
 
 function setIdentifierValues(
   hostNameMap: Record<string, any>,
   ipAddressMap: Record<string, any>
 ): void {
-  setObjectValuesOnHtml(hostNameMap, ['Statichostname']);
-  setObjectValuesOnHtml(ipAddressMap, [
-    'publicIpv4Address',
-    'privateIpv4Address',
-    'privateIpv6Address',
-  ]);
+  setObjectValuesOnHtml(hostNameMap);
+  setObjectValuesOnHtml(ipAddressMap);
 }
 
 function setDyanmicValues(): void {
