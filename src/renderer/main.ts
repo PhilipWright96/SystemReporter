@@ -1,6 +1,20 @@
 // api exposed in preload.ts, but redeclared here to make eslint happy
 declare const api: any;
 
+function setObjectValuesOnHtml(
+  valuesToSetOnHtml: Record<string, any>,
+  supportedKeys: string[]
+): void {
+  Object.entries(valuesToSetOnHtml).forEach((commandOutput) => {
+    const commandOutputKey = commandOutput[0];
+    const commandOutputResult = commandOutput[1];
+    if (supportedKeys.includes(commandOutputKey)) {
+      const htmlTag = document.getElementById(commandOutputKey);
+      htmlTag!.innerText = `${htmlTag!.innerText}:${commandOutputResult}`;
+    }
+  });
+}
+
 function setCPUValues(lscpuMap: Record<string, any>): void {
   const supportedCpuValueOutputKeys = [
     'Architecture',
@@ -11,14 +25,7 @@ function setCPUValues(lscpuMap: Record<string, any>): void {
     'VendorID',
   ];
 
-  Object.entries(lscpuMap).forEach((commandOutput) => {
-    const commandOutputKey = commandOutput[0];
-    const commandOutputResult = commandOutput[1];
-    if (supportedCpuValueOutputKeys.includes(commandOutputKey)) {
-      const htmlTag = document.getElementById(commandOutputKey);
-      htmlTag!.innerText = `${htmlTag!.innerText}:${commandOutputResult}`;
-    }
-  });
+  setObjectValuesOnHtml(lscpuMap, supportedCpuValueOutputKeys);
 }
 
 function setIdentifierValues(
