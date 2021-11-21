@@ -13,5 +13,6 @@ module.exports = {
   rules: {
     'comma-dangle': 'off',
     'prettier/prettier': 'error',
+    'one-var': 'never',
   },
 };
