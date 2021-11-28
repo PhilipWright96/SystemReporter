@@ -26,4 +26,30 @@ function buildJSONFromCommandLineOutput(
   return hostNameMap;
 }
 
-export default buildJSONFromCommandLineOutput;
+function setMapValuesToNewMeasurement(mapToConvert: Record<string, any>) {
+  Object.keys(mapToConvert).forEach((key) => {
+    const oldNumericalValue = mapToConvert[key].match(/\d+/),
+      newVal = convertKilobyteToMegabyte(oldNumericalValue).toFixed(2);
+    mapToConvert[key] = `${newVal} MB`;
+  });
+  return mapToConvert;
+}
+
+function convertKilobyteToMegabyte(originalValue: number): number {
+  return originalValue / 1024;
+}
+
+// function convertBytesToGivenMeasurement(bytes: number, measurement: string) {
+//   const k = 1024;
+//   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+
+//   const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+//   return (
+//     parseFloat((bytes / Math.pow(k, sizes.indexOf(measurement))).toFixed(2)) +
+//     ' ' +
+//     sizes[i]
+//   );
+// }
+
+export { buildJSONFromCommandLineOutput, setMapValuesToNewMeasurement };
