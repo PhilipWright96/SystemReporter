@@ -1,6 +1,6 @@
 import { contextBridge } from 'electron';
 import { execSync } from 'child_process';
-import buildJSONFromCommandLineOutput from './stringUtil';
+import buildJSONFromCommandLineOutput from './util';
 
 function exposeMachineStatistics(): void {
   const hostNameOutput = execSync('hostnamectl', { encoding: 'utf-8' }),
