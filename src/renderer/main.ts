@@ -22,11 +22,16 @@ function setIdentifierValues(
   setObjectValuesOnHtml(ipAddressMap);
 }
 
+function setMemoryValues(memoryMap: Record<string, any>): void {
+  setObjectValuesOnHtml(memoryMap);
+}
+
 function setDyanmicValues(): void {
-  const { hostNameMap, ipAddressMap, lscpuMap } = api;
+  const { hostNameMap, ipAddressMap, lscpuMap, memoryMap } = api;
 
   setCPUValues(lscpuMap);
   setIdentifierValues(hostNameMap, ipAddressMap);
+  setMemoryValues(memoryMap);
 }
 
 function setValuesOnHtml(): void {
