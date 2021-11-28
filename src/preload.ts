@@ -1,6 +1,9 @@
 import { contextBridge } from 'electron';
 import { execSync } from 'child_process';
-import buildJSONFromCommandLineOutput from './util';
+import {
+  buildJSONFromCommandLineOutput,
+  setMapValuesToNewMeasurement,
+} from './util';
 
 function exposeMachineStatistics(): void {
   const hostNameOutput = execSync('hostnamectl', { encoding: 'utf-8' }),
@@ -9,7 +12,8 @@ function exposeMachineStatistics(): void {
     publicIpv4Address = execSync('curl ifconfig.me', { encoding: 'utf-8' }),
     ipv6Command =
       "ip addr | grep inet6 | grep -vwE '(host)' | awk '{print $2;}' | tr -d '\r\n'",
-    privateIpv6Address = execSync(ipv6Command, { encoding: 'utf-8' });
+    privateIpv6Address = execSync(ipv6Command, { encoding: 'utf-8' }),
+    memoryInfo = execSync('cat /proc/meminfo', { encoding: 'utf-8' });
 
   // TODO: Investigate using 'process'object values here as well
   const hostNameMap = buildJSONFromCommandLineOutput(hostNameOutput, [
@@ -27,11 +31,15 @@ function exposeMachineStatistics(): void {
       privateIpv4Address,
       publicIpv4Address,
       privateIpv6Address,
-    });
+    }),
+    memoryMap = setMapValuesToNewMeasurement(
+      buildJSONFromCommandLineOutput(memoryInfo, ['MemTotal', 'MemAvailable'])
+    );
   contextBridge.exposeInMainWorld('api', {
     hostNameMap,
     ipAddressMap,
     lscpuMap,
+    memoryMap,
   });
 }
 
