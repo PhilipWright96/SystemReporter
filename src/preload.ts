@@ -13,7 +13,10 @@ function exposeMachineStatistics(): void {
     ipv6Command =
       "ip addr | grep inet6 | grep -vwE '(host)' | awk '{print $2;}' | tr -d '\r\n'",
     privateIpv6Address = execSync(ipv6Command, { encoding: 'utf-8' }),
-    memoryInfo = execSync('cat /proc/meminfo', { encoding: 'utf-8' });
+    ramMemoryInfo = execSync('cat /proc/meminfo', { encoding: 'utf-8' }),
+    persistantMemoryInfo = execSync('cat /sys/block/sda/queue/rotational', {
+      encoding: 'utf-8',
+    });
 
   // TODO: Investigate using 'process'object values here as well
   const hostNameMap = buildJSONFromCommandLineOutput(hostNameOutput, [
@@ -33,8 +36,14 @@ function exposeMachineStatistics(): void {
       privateIpv6Address,
     }),
     memoryMap = setMapValuesToNewMeasurement(
-      buildJSONFromCommandLineOutput(memoryInfo, ['MemTotal', 'MemAvailable'])
+      buildJSONFromCommandLineOutput(ramMemoryInfo, [
+        'MemTotal',
+        'MemAvailable',
+      ])
     );
+  memoryMap.PersistantStorageType =
+    parseInt(persistantMemoryInfo) == 0 ? 'Solid State Drive' : 'Hard Drive';
+
   contextBridge.exposeInMainWorld('api', {
     hostNameMap,
     ipAddressMap,
