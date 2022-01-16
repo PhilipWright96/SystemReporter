@@ -71,6 +71,8 @@ function convertGigabyteToMegabyte(originalValue: number): number {
   return originalValue * 1024;
 }
 
+// Note - Using 1024 which is technically 'ibyte' instead of 'abyte'
+//https://www.techspot.com/news/68482-quickly-convert-between-storage-size-units-kb-mb.html
 function convertValueToNewMemoryUnit(
   originalValue: number,
   currentUnit: string,
