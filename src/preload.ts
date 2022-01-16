@@ -2,7 +2,6 @@ import { contextBridge } from 'electron';
 import { execSync } from 'child_process';
 import {
   buildJSONFromCommandLineOutput,
-  convertValueToNewMemoryUnit,
   getFileSystemSizeInfo,
   setMapValuesToNewMeasurement,
 } from './util';
