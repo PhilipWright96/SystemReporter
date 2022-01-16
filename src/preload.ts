@@ -2,6 +2,7 @@ import { contextBridge } from 'electron';
 import { execSync } from 'child_process';
 import {
   buildJSONFromCommandLineOutput,
+  getFileSystemSizeInfo,
   setMapValuesToNewMeasurement,
 } from './util';
 
@@ -14,7 +15,10 @@ function exposeMachineStatistics(): void {
       "ip addr | grep inet6 | grep -vwE '(host)' | awk '{print $2;}' | tr -d '\r\n'",
     privateIpv6Address = execSync(ipv6Command, { encoding: 'utf-8' }),
     ramMemoryInfo = execSync('cat /proc/meminfo', { encoding: 'utf-8' }),
-    persistantMemoryInfo = execSync('cat /sys/block/sda/queue/rotational', {
+    isHardDrive = execSync('cat /sys/block/sda/queue/rotational', {
+      encoding: 'utf-8',
+    }),
+    persistantMemoryInfo = execSync('df -H --output=source,size', {
       encoding: 'utf-8',
     });
 
@@ -42,7 +46,20 @@ function exposeMachineStatistics(): void {
       ])
     );
   memoryMap.PersistantStorageType =
-    parseInt(persistantMemoryInfo) == 0 ? 'Solid State Drive' : 'Hard Drive';
+    parseInt(isHardDrive) == 0 ? 'Solid State Drive' : 'Hard Drive';
+
+  const fileSystemToSizeInMB = getFileSystemSizeInfo(persistantMemoryInfo);
+  let totalSizeOfDriveSpace = 0;
+
+  Object.entries(fileSystemToSizeInMB).forEach((entry) => {
+    const fileSystem = entry[0],
+      size = entry[1];
+    if (fileSystem.includes('dev/sda')) {
+      totalSizeOfDriveSpace += size;
+    }
+  });
+
+  memoryMap.TotalDiskCapacity = `${totalSizeOfDriveSpace} MB`;
 
   contextBridge.exposeInMainWorld('api', {
     hostNameMap,

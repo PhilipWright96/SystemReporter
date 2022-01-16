@@ -35,21 +35,44 @@ function setMapValuesToNewMeasurement(mapToConvert: Record<string, any>) {
   return mapToConvert;
 }
 
+function getFileSystemSizeInfo(commandLineOutput: string) {
+  const cleanedStringOutput = commandLineOutput
+      .replace(/\n+/g, '   ')
+      .replace(/\s+/g, ' ')
+      .split(' '),
+    fileSystemToSizeInMB: Record<string, any> = {};
+
+  for (let i = 2; i < cleanedStringOutput.length; i += 2) {
+    const fileSystem = cleanedStringOutput[i],
+      sizeOfFileSystem = cleanedStringOutput[i + 1];
+
+    let sizeInMB;
+
+    if (sizeOfFileSystem) {
+      if (sizeOfFileSystem.includes('G')) {
+        // Slicing here to remove size type char
+        const amount = parseInt(sizeOfFileSystem.slice(0, -1));
+        sizeInMB = convertGigabyteToMegabyte(amount);
+      } else {
+        sizeInMB = parseInt(sizeOfFileSystem.slice(0, -1));
+      }
+    }
+
+    fileSystemToSizeInMB[fileSystem] = sizeInMB;
+  }
+  return fileSystemToSizeInMB;
+}
+
 function convertKilobyteToMegabyte(originalValue: number): number {
   return originalValue / 1024;
 }
 
-// function convertBytesToGivenMeasurement(bytes: number, measurement: string) {
-//   const k = 1024;
-//   const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+function convertGigabyteToMegabyte(originalValue: number): number {
+  return originalValue * 1024;
+}
 
-//   const i = Math.floor(Math.log(bytes) / Math.log(k));
-
-//   return (
-//     parseFloat((bytes / Math.pow(k, sizes.indexOf(measurement))).toFixed(2)) +
-//     ' ' +
-//     sizes[i]
-//   );
-// }
-
-export { buildJSONFromCommandLineOutput, setMapValuesToNewMeasurement };
+export {
+  buildJSONFromCommandLineOutput,
+  getFileSystemSizeInfo,
+  setMapValuesToNewMeasurement,
+};
