@@ -8,16 +8,16 @@ import {
 
 function exposeMachineStatistics(): void {
   // TODO: Investigate using 'process'object values here as well
-  const hostNameMap = getHostNameInformation();
-  const ipAddressMap = getIPAddressInformation();
-  const lscpuMap = getCPUInformation();
-  const memoryMap = getMemoryInformation();
+  const cpuInformation = getCPUInformation();
+  const hostNameInformation = getHostNameInformation();
+  const idAddressInformation = getIPAddressInformation();
+  const memoryInformation = getMemoryInformation();
 
   contextBridge.exposeInMainWorld('api', {
-    hostNameMap,
-    ipAddressMap,
-    lscpuMap,
-    memoryMap,
+    cpuInformation,
+    hostNameInformation,
+    idAddressInformation,
+    memoryInformation,
   });
 }
 

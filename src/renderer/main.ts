@@ -10,28 +10,33 @@ function setObjectValuesOnHtml(valuesToSetOnHtml: Record<string, any>): void {
   });
 }
 
-function setCPUValues(lscpuMap: Record<string, any>): void {
-  setObjectValuesOnHtml(lscpuMap);
+function setCPUValues(cpuInformation: Record<string, any>): void {
+  setObjectValuesOnHtml(cpuInformation);
 }
 
 function setIdentifierValues(
-  hostNameMap: Record<string, any>,
-  ipAddressMap: Record<string, any>
+  hostNameInformation: Record<string, any>,
+  idAddressInformation: Record<string, any>
 ): void {
-  setObjectValuesOnHtml(hostNameMap);
-  setObjectValuesOnHtml(ipAddressMap);
+  setObjectValuesOnHtml(hostNameInformation);
+  setObjectValuesOnHtml(idAddressInformation);
 }
 
-function setMemoryValues(memoryMap: Record<string, any>): void {
-  setObjectValuesOnHtml(memoryMap);
+function setMemoryValues(memoryInformation: Record<string, any>): void {
+  setObjectValuesOnHtml(memoryInformation);
 }
 
 function setDyanmicValues(): void {
-  const { hostNameMap, ipAddressMap, lscpuMap, memoryMap } = api;
+  const {
+    cpuInformation,
+    hostNameInformation,
+    idAddressInformation,
+    memoryInformation,
+  } = api;
 
-  setCPUValues(lscpuMap);
-  setIdentifierValues(hostNameMap, ipAddressMap);
-  setMemoryValues(memoryMap);
+  setCPUValues(cpuInformation);
+  setIdentifierValues(hostNameInformation, idAddressInformation);
+  setMemoryValues(memoryInformation);
 }
 
 function setValuesOnHtml(): void {
