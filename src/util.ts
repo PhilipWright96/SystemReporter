@@ -71,8 +71,32 @@ function convertGigabyteToMegabyte(originalValue: number): number {
   return originalValue * 1024;
 }
 
+function convertValueToNewMemoryUnit(
+  originalValue: number,
+  currentUnit: string,
+  newUnit: string
+) {
+  const memoryUnits = ['B', 'KB', 'MB', 'GB', 'TB'],
+    currentUnitIndex = memoryUnits.indexOf(currentUnit),
+    newUnitIndex = memoryUnits.indexOf(newUnit),
+    indexDiff = Math.abs(newUnitIndex - currentUnitIndex);
+
+  let newVal = originalValue;
+  if (currentUnitIndex < newUnitIndex) {
+    for (let i = 0; i < indexDiff; i++) {
+      newVal /= 1024;
+    }
+  } else {
+    for (let i = 0; i < indexDiff; i++) {
+      newVal *= 1024;
+    }
+  }
+  return newVal;
+}
+
 export {
   buildJSONFromCommandLineOutput,
+  convertValueToNewMemoryUnit,
   getFileSystemSizeInfo,
   setMapValuesToNewMeasurement,
 };
