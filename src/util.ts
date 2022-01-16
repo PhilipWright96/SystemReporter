@@ -29,7 +29,11 @@ function buildJSONFromCommandLineOutput(
 function setMapValuesToNewMeasurement(mapToConvert: Record<string, any>) {
   Object.keys(mapToConvert).forEach((key) => {
     const oldNumericalValue = mapToConvert[key].match(/\d+/),
-      newVal = convertKilobyteToMegabyte(oldNumericalValue).toFixed(2);
+      newVal = convertValueToNewMemoryUnit(
+        oldNumericalValue,
+        'KB',
+        'MB'
+      ).toFixed(2);
     mapToConvert[key] = `${newVal} MB`;
   });
   return mapToConvert;
@@ -52,7 +56,7 @@ function getFileSystemSizeInfo(commandLineOutput: string) {
       if (sizeOfFileSystem.includes('G')) {
         // Slicing here to remove size type char
         const amount = parseInt(sizeOfFileSystem.slice(0, -1));
-        sizeInMB = convertGigabyteToMegabyte(amount);
+        sizeInMB = convertValueToNewMemoryUnit(amount, 'GB', 'MB');
       } else {
         sizeInMB = parseInt(sizeOfFileSystem.slice(0, -1));
       }
@@ -61,14 +65,6 @@ function getFileSystemSizeInfo(commandLineOutput: string) {
     fileSystemToSizeInMB[fileSystem] = sizeInMB;
   }
   return fileSystemToSizeInMB;
-}
-
-function convertKilobyteToMegabyte(originalValue: number): number {
-  return originalValue / 1024;
-}
-
-function convertGigabyteToMegabyte(originalValue: number): number {
-  return originalValue * 1024;
 }
 
 // Note - Using 1024 which is technically 'ibyte' instead of 'abyte'
