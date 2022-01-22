@@ -5,6 +5,7 @@ import {
   getFileSystemSizeInfo,
   setMapValuesToNewMeasurement,
 } from './util';
+import { getCPUInformation } from './cpu/cpuInfo';
 
 function exposeMachineStatistics(): void {
   // TODO: Investigate using 'process'object values here as well
@@ -38,18 +39,6 @@ function getIPAddressInformation() {
     publicIpv4Address,
     privateIpv6Address,
   });
-}
-
-function getCPUInformation() {
-  const lscpuOutput = execSync('lscpu', { encoding: 'utf-8' });
-  return buildJSONFromCommandLineOutput(lscpuOutput, [
-    'Architecture',
-    'CPUs',
-    'CPUminMHz',
-    'CPUmaxMHz',
-    'Modelname',
-    'VendorID',
-  ]);
 }
 
 function getMemoryInformation() {
