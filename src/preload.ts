@@ -6,6 +6,7 @@ import {
   setMapValuesToNewMeasurement,
 } from './util';
 import { getCPUInformation } from './cpu/cpuInfo';
+import { getHostNameInformation } from './hostname/hostnameInfo';
 
 function exposeMachineStatistics(): void {
   // TODO: Investigate using 'process'object values here as well
@@ -20,11 +21,6 @@ function exposeMachineStatistics(): void {
     idAddressInformation,
     memoryInformation,
   });
-}
-
-function getHostNameInformation() {
-  const hostNameOutput = execSync('hostnamectl', { encoding: 'utf-8' });
-  return buildJSONFromCommandLineOutput(hostNameOutput, ['Statichostname']);
 }
 
 function getIPAddressInformation() {
