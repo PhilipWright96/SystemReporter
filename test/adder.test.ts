@@ -1,10 +1,10 @@
-import { addTwoNumbers } from './adder';
+import { addTwoNumbers } from '../src/util/adder';
 
 describe('test add function', () => {
   it('should return correct result for adding two numbers', () => {
     // Given
     // When
-    // Then
+    // Thengi
     expect(addTwoNumbers(10, 5)).toBe(15);
   });
 });
