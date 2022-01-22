@@ -3,7 +3,7 @@ import {
   buildJSONFromCommandLineOutput,
   getFileSystemSizeInfo,
   setMapValuesToNewMeasurement,
-} from '../util/util';
+} from '../util/stringParseUtil';
 
 function getMemoryInformation() {
   const ramMemoryInfo = execSync('cat /proc/meminfo', { encoding: 'utf-8' }),

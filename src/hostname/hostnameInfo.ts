@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import { buildJSONFromCommandLineOutput } from '../util/util';
+import { buildJSONFromCommandLineOutput } from '../util/stringParseUtil';
 
 function getHostNameInformation() {
   const hostNameOutput = execSync('hostnamectl', { encoding: 'utf-8' });
