@@ -25,4 +25,17 @@ function convertValueToNewMemoryUnit(
   return newVal;
 }
 
-export { convertValueToNewMemoryUnit };
+function setMapValuesToNewMeasurement(mapToConvert: Record<string, any>) {
+  Object.keys(mapToConvert).forEach((key) => {
+    const oldNumericalValue = mapToConvert[key].match(/\d+/),
+      newVal = convertValueToNewMemoryUnit(
+        oldNumericalValue,
+        'KB',
+        'MB'
+      ).toFixed(2);
+    mapToConvert[key] = `${newVal} MB`;
+  });
+  return mapToConvert;
+}
+
+export { convertValueToNewMemoryUnit, setMapValuesToNewMeasurement };

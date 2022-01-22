@@ -28,19 +28,6 @@ function buildJSONFromCommandLineOutput(
   return hostNameMap;
 }
 
-function setMapValuesToNewMeasurement(mapToConvert: Record<string, any>) {
-  Object.keys(mapToConvert).forEach((key) => {
-    const oldNumericalValue = mapToConvert[key].match(/\d+/),
-      newVal = convertValueToNewMemoryUnit(
-        oldNumericalValue,
-        'KB',
-        'MB'
-      ).toFixed(2);
-    mapToConvert[key] = `${newVal} MB`;
-  });
-  return mapToConvert;
-}
-
 function getFileSystemSizeInfo(commandLineOutput: string) {
   const cleanedStringOutput = commandLineOutput
       .replace(/\n+/g, '   ')
@@ -73,5 +60,4 @@ export {
   buildJSONFromCommandLineOutput,
   convertValueToNewMemoryUnit,
   getFileSystemSizeInfo,
-  setMapValuesToNewMeasurement,
 };

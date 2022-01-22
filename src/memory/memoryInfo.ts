@@ -2,8 +2,9 @@ import { execSync } from 'child_process';
 import {
   buildJSONFromCommandLineOutput,
   getFileSystemSizeInfo,
-  setMapValuesToNewMeasurement,
 } from '../util/stringParseUtil';
+
+import { setMapValuesToNewMeasurement } from '../util/memoryUnitUtil';
 
 function getMemoryInformation() {
   const ramMemoryInfo = execSync('cat /proc/meminfo', { encoding: 'utf-8' }),
