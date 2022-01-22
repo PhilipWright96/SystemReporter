@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import { buildJSONFromCommandLineOutput } from '../util';
+import { buildJSONFromCommandLineOutput } from '../util/util';
 
 function getCPUInformation() {
   const lscpuOutput = execSync('lscpu', { encoding: 'utf-8' });
