@@ -1,7 +1,7 @@
 import { execSync } from 'child_process';
 import { getFileSystemSizeInfo } from '../util/stringParseUtil';
 
-function setTotalDiskCapacity() {
+function getTotalDiskCapacity() {
   const persistantMemoryInfo = execSync('df -H --output=source,size', {
     encoding: 'utf-8',
   });
@@ -19,4 +19,4 @@ function setTotalDiskCapacity() {
   return `${totalSizeOfDriveSpace} MB`;
 }
 
-export { setTotalDiskCapacity };
+export { getTotalDiskCapacity };

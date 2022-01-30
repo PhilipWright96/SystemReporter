@@ -1,7 +1,7 @@
 import { execSync } from 'child_process';
 import { buildJSONFromCommandLineOutput } from '../util/stringParseUtil';
-import { setStorageType } from './setStorageType';
-import { setTotalDiskCapacity } from './setTotalDiskCapacity';
+import { getStorageType } from './getStorageType';
+import { getTotalDiskCapacity } from './getTotalDiskCapacity';
 
 import { setMapValuesToNewMeasurement } from '../util/memoryUnitUtil';
 
@@ -12,9 +12,9 @@ function getMemoryInformation() {
     buildJSONFromCommandLineOutput(ramMemoryInfo, ['MemTotal', 'MemAvailable'])
   );
 
-  memoryMap.PersistentStorageType = setStorageType();
+  memoryMap.PersistentStorageType = getStorageType();
 
-  memoryMap.TotalDiskCapacity = setTotalDiskCapacity();
+  memoryMap.TotalDiskCapacity = getTotalDiskCapacity();
 
   return memoryMap;
 }
