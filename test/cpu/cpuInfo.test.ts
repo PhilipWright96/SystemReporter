@@ -8,12 +8,12 @@ jest.mock('child_process');
 describe('getCPUInformation', () => {
   it('should parse information from lscpu and return it', () => {
     // Given
-    const dummyHostNameMap = { fakeProperty: 'fake value' },
+    const dummyJSONOutput = { fakeProperty: 'fake value' },
       fakeLsuOutput = Buffer.from('Fake lscpu output', 'utf-8');
     jest.spyOn(childProcess, 'execSync').mockReturnValue(fakeLsuOutput);
     jest
       .spyOn(stringParseUtil, 'buildJSONFromCommandLineOutput')
-      .mockReturnValueOnce(dummyHostNameMap);
+      .mockReturnValueOnce(dummyJSONOutput);
 
     // When
     const cpuInformation = getCPUInformation();
@@ -39,6 +39,6 @@ describe('getCPUInformation', () => {
       ]
     );
 
-    expect(cpuInformation).toEqual(dummyHostNameMap);
+    expect(cpuInformation).toEqual(dummyJSONOutput);
   });
 });
