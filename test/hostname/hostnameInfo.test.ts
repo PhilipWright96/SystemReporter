@@ -32,6 +32,6 @@ describe('getHostNameInformation', () => {
       ['Statichostname']
     );
 
-    expect(hostnameInformation).toEqual(dummyJSONOutput);
+    expect(hostnameInformation).toStrictEqual(dummyJSONOutput);
   });
 });

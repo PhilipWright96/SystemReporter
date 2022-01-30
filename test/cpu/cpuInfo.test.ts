@@ -39,6 +39,6 @@ describe('getCPUInformation', () => {
       ]
     );
 
-    expect(cpuInformation).toEqual(dummyJSONOutput);
+    expect(cpuInformation).toStrictEqual(dummyJSONOutput);
   });
 });
