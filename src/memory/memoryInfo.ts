@@ -3,6 +3,7 @@ import {
   buildJSONFromCommandLineOutput,
   getFileSystemSizeInfo,
 } from '../util/stringParseUtil';
+import { setStorageType } from './setStorageType';
 
 import { setMapValuesToNewMeasurement } from '../util/memoryUnitUtil';
 
@@ -13,19 +14,11 @@ function getMemoryInformation() {
     buildJSONFromCommandLineOutput(ramMemoryInfo, ['MemTotal', 'MemAvailable'])
   );
 
-  setStorageType(memoryMap);
+  memoryMap.PersistentStorageType = setStorageType();
 
   setTotalDiskCapacity(memoryMap);
 
   return memoryMap;
-}
-
-function setStorageType(memoryMap: Record<string, any>) {
-  const isHardDrive = execSync('cat /sys/block/sda/queue/rotational', {
-    encoding: 'utf-8',
-  });
-  memoryMap.PersistantStorageType =
-    parseInt(isHardDrive) == 0 ? 'Solid State Drive' : 'Hard Drive';
 }
 
 function setTotalDiskCapacity(memoryMap: Record<string, any>) {
