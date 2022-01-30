@@ -3,14 +3,14 @@ import { getCPUInformation } from '../../src/cpu/cpuInfo';
 import * as stringParseUtil from '../../src/util/stringParseUtil';
 
 jest.mock('../../src/util/stringParseUtil');
+jest.mock('child_process');
 
 describe('getCPUInformation', () => {
-  it('should return correct result for adding two numbers', () => {
+  it('should parse information from lscpu and return it', () => {
     // Given
-    const dummyHostNameMap = { fakeProperty: 'fake value' };
-    jest
-      .spyOn(childProcess, 'execSync')
-      .mockReturnValue(Buffer.from('Fake lscpu output', 'utf-8'));
+    const dummyHostNameMap = { fakeProperty: 'fake value' },
+      fakeLsuOutput = Buffer.from('Fake lscpu output', 'utf-8');
+    jest.spyOn(childProcess, 'execSync').mockReturnValue(fakeLsuOutput);
     jest
       .spyOn(stringParseUtil, 'buildJSONFromCommandLineOutput')
       .mockReturnValueOnce(dummyHostNameMap);
@@ -27,17 +27,18 @@ describe('getCPUInformation', () => {
     expect(
       stringParseUtil.buildJSONFromCommandLineOutput
     ).toHaveBeenCalledTimes(1);
-    // expect(stringParseUtil.buildJSONFromCommandLineOutput).toHaveBeenCalledWith(
-    //   'a',
-    //   [
-    //     'Architecture',
-    //     'CPUs',
-    //     'CPUminMHz',
-    //     'CPUmaxMHz',
-    //     'Modelname',
-    //     'VendorID',
-    //   ]
-    // );
+    expect(stringParseUtil.buildJSONFromCommandLineOutput).toHaveBeenCalledWith(
+      fakeLsuOutput,
+      [
+        'Architecture',
+        'CPUs',
+        'CPUminMHz',
+        'CPUmaxMHz',
+        'Modelname',
+        'VendorID',
+      ]
+    );
+
     expect(cpuInformation).toEqual(dummyHostNameMap);
   });
 });
