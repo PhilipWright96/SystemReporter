@@ -7,21 +7,31 @@ import {
 import { setMapValuesToNewMeasurement } from '../util/memoryUnitUtil';
 
 function getMemoryInformation() {
-  const ramMemoryInfo = execSync('cat /proc/meminfo', { encoding: 'utf-8' }),
-    isHardDrive = execSync('cat /sys/block/sda/queue/rotational', {
-      encoding: 'utf-8',
-    }),
-    persistantMemoryInfo = execSync('df -H --output=source,size', {
-      encoding: 'utf-8',
-    });
+  const ramMemoryInfo = execSync('cat /proc/meminfo', { encoding: 'utf-8' });
 
   const memoryMap = setMapValuesToNewMeasurement(
     buildJSONFromCommandLineOutput(ramMemoryInfo, ['MemTotal', 'MemAvailable'])
   );
 
+  setStorageType(memoryMap);
+
+  setTotalDiskCapacity(memoryMap);
+
+  return memoryMap;
+}
+
+function setStorageType(memoryMap: Record<string, any>) {
+  const isHardDrive = execSync('cat /sys/block/sda/queue/rotational', {
+    encoding: 'utf-8',
+  });
   memoryMap.PersistantStorageType =
     parseInt(isHardDrive) == 0 ? 'Solid State Drive' : 'Hard Drive';
+}
 
+function setTotalDiskCapacity(memoryMap: Record<string, any>) {
+  const persistantMemoryInfo = execSync('df -H --output=source,size', {
+    encoding: 'utf-8',
+  });
   const fileSystemToSizeInMB = getFileSystemSizeInfo(persistantMemoryInfo);
   let totalSizeOfDriveSpace = 0;
 
@@ -34,8 +44,6 @@ function getMemoryInformation() {
   });
 
   memoryMap.TotalDiskCapacity = `${totalSizeOfDriveSpace} MB`;
-
-  return memoryMap;
 }
 
 export { getMemoryInformation };
