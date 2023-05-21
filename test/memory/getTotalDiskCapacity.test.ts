@@ -4,6 +4,10 @@ import * as stringParseUtil from '../../src/util/stringParseUtil';
 
 jest.mock('child_process');
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('getTotalDiskCapacity', () => {
   it('should return total size of dev/sda file systems', () => {
     // Given

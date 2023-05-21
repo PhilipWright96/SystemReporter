@@ -3,6 +3,10 @@ import { getIPAddressInformation } from '../../src/ipaddress/ipaddressInfo';
 
 jest.mock('child_process');
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('getIPAddressInformation', () => {
   it('should run various ip related commands and return their output', () => {
     // Given

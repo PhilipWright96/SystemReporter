@@ -5,6 +5,10 @@ import * as stringParseUtil from '../../src/util/stringParseUtil';
 jest.mock('../../src/util/stringParseUtil');
 jest.mock('child_process');
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('getCPUInformation', () => {
   it('should parse information from lscpu and return it', () => {
     // Given

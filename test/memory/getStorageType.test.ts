@@ -3,6 +3,10 @@ import { getStorageType } from '../../src/memory/getStorageType';
 
 jest.mock('child_process');
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('getStorageType', () => {
   it('should return solid state drive when terminal command returns 0', () => {
     // Given

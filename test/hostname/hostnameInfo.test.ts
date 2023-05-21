@@ -5,6 +5,10 @@ import * as stringParseUtil from '../../src/util/stringParseUtil';
 jest.mock('../../src/util/stringParseUtil');
 jest.mock('child_process');
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('getHostNameInformation', () => {
   it('should parse information from hostnamectl and return it', () => {
     // Given

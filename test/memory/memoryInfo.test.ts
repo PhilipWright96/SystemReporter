@@ -12,6 +12,10 @@ jest.mock('../../src/memory/getTotalDiskCapacity');
 
 jest.mock('child_process');
 
+afterEach(() => {
+  jest.clearAllMocks();
+});
+
 describe('getMemoryInformation', () => {
   it('should construct memory map and set both storage type and disk capacity', () => {
     // Given
