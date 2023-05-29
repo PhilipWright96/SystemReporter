@@ -9,3 +9,6 @@ Starting the App
 
 To run all tests, run the command 'npm test'. You will also automatically get coverage statistics from
 this command on the terminal.
+
+Debugging the App
+To debug the app, simply start it normally. Then you can go on to the google inspector page with control + shift + i. From there, you can add breakpoints - and then refresh the app to hit those breakpoints.
