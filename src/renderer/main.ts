@@ -26,17 +26,23 @@ function setMemoryValues(memoryInformation: Record<string, any>): void {
   setObjectValuesOnHtml(memoryInformation);
 }
 
+function setProcessValues(processInformation: Record<string, any>): void {
+  setObjectValuesOnHtml(processInformation);
+}
+
 function setDyanmicValues(): void {
   const {
     cpuInformation,
     hostNameInformation,
     idAddressInformation,
     memoryInformation,
+    processInformation,
   } = api;
 
   setCPUValues(cpuInformation);
   setIdentifierValues(hostNameInformation, idAddressInformation);
   setMemoryValues(memoryInformation);
+  setProcessValues(processInformation);
 }
 
 function setValuesOnHtml(): void {
