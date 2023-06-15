@@ -1,6 +1,7 @@
 const { app, BrowserWindow } = require('electron');
 
 const createWindow = () => {
+  // You can add debugging code here as necessary
   // Create the browser window.
   const mainWindow: any = new BrowserWindow({
     autoHideMenuBar: true,
@@ -8,6 +9,7 @@ const createWindow = () => {
     height: 600,
     webPreferences: {
       preload: `${__dirname}/preload.js`,
+      nodeIntegration: true,
     },
     show: false,
   });
